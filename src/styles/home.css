@@ -1,0 +1,138 @@
+/* ===== Hero ===== */
+.hero {
+  background: var(--green);
+  color: var(--white);
+  padding-block: 3rem;
+}
+
+.hero__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.hero h1 {
+  color: var(--yellow);
+}
+
+.hero__image {
+  width: 100%;
+  max-height: 420px;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+/* ===== Specials ===== */
+.specials {
+  padding-top: 4rem;
+}
+
+.specials__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.specials__header h2 {
+  margin: 0;
+}
+
+.specials__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--light);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem;
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.card__price {
+  font-weight: 500;
+  color: var(--green); /* highlight text colour from the style guide; passes WCAG AA contrast */
+  margin: 0;
+}
+
+.card__delivery {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+/* ===== About ===== */
+.about {
+  padding-top: 5rem;
+}
+
+.about__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about__images {
+  position: relative;
+  min-height: 340px;
+}
+
+.about__image {
+  position: absolute;
+  width: 65%;
+  border-radius: var(--radius);
+  object-fit: cover;
+  aspect-ratio: 3 / 2;
+}
+
+.about__image--back {
+  top: 0;
+  right: 0;
+}
+
+.about__image--front {
+  bottom: 0;
+  left: 0;
+  border: 4px solid var(--white);
+}
+
+@media (max-width: 768px) {
+  .hero__inner,
+  .about__inner,
+  .specials__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-block: 2rem;
+  }
+}

@@ -1,0 +1,288 @@
+/* ===== Design tokens (from the Little Lemon style guide) ===== */
+:root {
+  --green: #495e57;
+  --yellow: #f4ce14;
+  --salmon: #ee9972;
+  --peach: #fbdabb;
+  --light: #edefee;
+  --dark: #333333;
+  --white: #ffffff;
+  --error: #b00020;
+  --radius: 16px;
+  --font-display: 'Markazi Text', Georgia, 'Times New Roman', serif;
+  --font-body: 'Karla', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ===== Reset / base ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1rem; /* 16pt paragraph text per style guide */
+  line-height: 1.5;
+  color: var(--dark);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.5rem;
+  line-height: 1.1;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 4rem); /* display 64pt */
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+}
+
+h3 {
+  font-size: 1.125rem; /* card title 18pt bold */
+  font-weight: 700;
+}
+
+p {
+  margin: 0 0 1rem;
+  max-width: 65ch; /* style guide: max 65 characters per line */
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+main:focus {
+  outline: none; /* main only receives programmatic focus from the skip link */
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--salmon);
+  outline-offset: 2px;
+}
+
+.container {
+  width: min(100% - 2rem, 1100px);
+  margin-inline: auto;
+}
+
+/* ===== Skip link (visible only on keyboard focus) ===== */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  background: var(--yellow);
+  color: var(--dark);
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ===== Typography helpers ===== */
+.subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.5rem); /* sub title 40pt */
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.subtitle--dark {
+  color: var(--dark);
+}
+
+.lead {
+  font-size: 1.125rem; /* lead text medium 18pt */
+  font-weight: 500;
+}
+
+/* ===== Buttons ===== */
+.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  font: 700 1rem var(--font-body);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+.button--primary {
+  background: var(--yellow);
+  color: var(--dark);
+}
+
+.button--primary:hover {
+  background: #e0bb08;
+}
+
+.button--secondary {
+  background: transparent;
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.button--secondary:hover {
+  background: var(--green);
+  color: var(--white);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===== Header / navigation ===== */
+.site-header {
+  background: var(--white);
+  position: relative;
+  z-index: 10;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+  gap: 1rem;
+}
+
+.nav__links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.nav__links a {
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.nav__links a:hover {
+  border-bottom-color: var(--yellow);
+}
+
+.nav__toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: var(--green);
+  color: var(--white);
+  padding-block: 3rem;
+  margin-top: 4rem;
+}
+
+.site-footer__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.site-footer h2 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.site-footer li {
+  margin-bottom: 0.5rem;
+}
+
+.site-footer address {
+  font-style: normal;
+}
+
+.site-footer img {
+  filter: brightness(0) invert(1); /* render the logo in white on green */
+}
+
+/* ===== Responsive: tablet & mobile ===== */
+@media (max-width: 768px) {
+  .nav__toggle {
+    display: block;
+  }
+
+  .nav__links {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--white);
+    padding: 0.5rem 1.5rem 1.5rem;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 12%);
+  }
+
+  .nav__links--open {
+    display: flex;
+  }
+
+  .nav__links li {
+    width: 100%;
+  }
+
+  .nav__links a {
+    display: block;
+    padding: 0.75rem 0;
+  }
+
+  .site-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Respect users who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
