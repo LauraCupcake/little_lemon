@@ -42,9 +42,30 @@ npm start          # http://localhost:3000
 | `CI=true npm test`| Runs the unit tests once (for CI / a quick check)     |
 | `npm run build`   | Creates an optimised production build in `build/`     |
 
-> **Deploying the build:** the app uses the browser History API for routes such as `/booking`,
-> so the host must serve `index.html` for unknown paths (a "single-page app" fallback).
-> To try it locally: `npx serve -s build`.
+> **Other hosts:** the app uses the browser History API for routes such as `/booking`, so the host must
+> serve `index.html` for unknown paths (a "single-page app" fallback). See *Deploying to GitHub Pages* below
+> for the GitHub setup.
+
+## Deploying to GitHub Pages
+
+The repository includes a workflow (`.github/workflows/deploy.yml`) that runs the tests, builds the
+app and publishes it every time you push to `main`.
+
+**One-time setup**
+
+1. Push the project to GitHub (repository name `little_lemon`, or any name – it is detected automatically).
+2. In the repository go to **Settings → Pages**.
+3. Under **Build and deployment → Source**, choose **GitHub Actions**.
+4. Push a commit (or run the workflow from the **Actions** tab). After about a minute the site is live at
+   `https://<your-username>.github.io/<repository-name>/`.
+
+**How it works**
+
+- The workflow builds with `PUBLIC_URL=/<repository-name>`, so assets and links work from the sub-folder
+  GitHub Pages uses. The router reads this base path (`src/router/Router.js`).
+- `npm run build` also copies `index.html` to `404.html` (`postbuild` script). GitHub Pages serves
+  `404.html` for unknown paths, which lets refreshing or sharing a link like `/booking` still load the app.
+- Local development is unchanged: `npm start` still serves the app at `http://localhost:3000`.
 
 ## Project structure
 
@@ -55,7 +76,7 @@ src/
 ├── components/     Header, Nav, Hero, Specials, About, Footer, BookingForm
 ├── pages/          HomePage, BookingPage, ConfirmedBooking, MessagePage
 ├── reducers/       availableTimes.js    initializeTimes + updateTimes reducer
-├── router/         Router.js            Small History-API router (Router, Routes, Route, Link)
+├── router/         Router.js            Small History-API router with base-path support
 ├── styles/         base.css, home.css, booking.css   (design tokens live in base.css)
 ├── utils/          validation.js, dateUtils.js
 ├── App.js          Layout + routes

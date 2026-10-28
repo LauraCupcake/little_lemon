@@ -16,10 +16,22 @@ import React, {
 
 const RouterContext = createContext(null);
 
-const readLocation = () => ({
-  pathname: window.location.pathname,
-  hash: window.location.hash,
-});
+/**
+ * Base path the app is served from. It is empty locally and "/little_lemon" on
+ * GitHub Pages (taken from PUBLIC_URL at build time). Routes are written without
+ * it ("/booking"); it is stripped when reading the URL and added when writing it.
+ */
+export const getBasename = () => (process.env.PUBLIC_URL || '').replace(/\/$/, '');
+
+/** Prefixes an app path ("/booking") with the base path. */
+export const withBasename = (to) => `${getBasename()}${to}`;
+
+const readLocation = () => {
+  const base = getBasename();
+  let pathname = window.location.pathname;
+  if (base && pathname.startsWith(base)) pathname = pathname.slice(base.length);
+  return { pathname: pathname || '/', hash: window.location.hash };
+};
 
 export function Router({ children }) {
   const [location, setLocation] = useState(readLocation);
@@ -42,7 +54,7 @@ export function Router({ children }) {
   }, [location]);
 
   const navigate = useCallback((to) => {
-    window.history.pushState({}, '', to);
+    window.history.pushState({}, '', withBasename(to));
     setLocation(readLocation());
   }, []);
 
@@ -92,7 +104,7 @@ export function Link({ to, onClick, children, ...rest }) {
   };
 
   return (
-    <a href={to} onClick={handleClick} {...rest}>
+    <a href={withBasename(to)} onClick={handleClick} {...rest}>
       {children}
     </a>
   );
